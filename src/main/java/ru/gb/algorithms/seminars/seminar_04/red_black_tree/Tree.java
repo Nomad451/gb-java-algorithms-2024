@@ -1,9 +1,19 @@
 package ru.gb.algorithms.seminars.seminar_04.red_black_tree;
 
+/**
+ * Красно-чёрное дерево.
+ * Каждая нода имеет свой цвет(красный или черный).
+ * Корень дерева всегда чёрный.
+ * Новая нода всегда красная.
+ * Красные ноды могут быть только левым ребёнком.
+ * У красной ноды все дети чёрного цвета.
+ */
 public class Tree {
     Node root;
 
-    // Узел, который хранит значение
+    /**
+     * Узел, который хранит элемент.
+     */
     class Node {
         int value;
         Node left;
@@ -11,12 +21,15 @@ public class Tree {
         Color color;
     }
 
+    /**
+     * Цвета узлов дерева
+     */
     enum Color {
         BLACK,
         RED
     }
 
-    // Метод вставки элемента в дерево
+    // Метод вставки элемента в дерево.
     public void insert(int value) {
         if (root != null) {
             insert(root, value);
@@ -28,7 +41,9 @@ public class Tree {
         root.color = Color.BLACK;
     }
 
-    // node - узел в который мы пришли, value - элемент, который собираемся вставить
+    // Метод вставки элемента в дерево
+    // node - узел в который мы пришли.
+    // value - элемент, который собираемся вставить.
     private void insert(Node node, int value) {
         if (node.value != value) {
             if (node.value < value) {
@@ -58,6 +73,7 @@ public class Tree {
         return find(root, value);
     }
 
+    // Метод поиска элемента
     private Node find(Node node , int value) {
         if (node == null) {
             return null;
@@ -72,6 +88,7 @@ public class Tree {
         }
     }
 
+    // Метод осуществляет левосторонний поворот.
     private Node leftRotate(Node node) {
         Node cur = node.right;
         node.right = cur.left;
@@ -81,6 +98,7 @@ public class Tree {
         return cur;
     }
 
+    // Метод осуществляет правосторонний поворот.
     private Node rightRotate(Node node) {
         Node cur = node.left;
         node.left = cur.right;
@@ -97,7 +115,7 @@ public class Tree {
         node.right.color = Color.BLACK;
     }
 
-    // Балансировка
+    // Метод выполняющий балансировку дерева
     private Node balance(Node node) {
         boolean flag;
         Node cur = node;
